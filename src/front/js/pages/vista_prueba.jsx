@@ -15,7 +15,7 @@ export const Vista_Cards = () => {
                                     <ul className="navbar-nav">
                                         <li className="nav-item">
                                             <a className="nav-link active" aria-current="page" href="#" onClick={() => setFiltros('Explorar Rutas')}>
-                                                Explorar Rutas
+                                                Explorar Rutass
                                             </a>
                                         </li>
                                         <li className="nav-item">
