@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Card_contenor } from "../component/cards/contenedor_cards.jsx";
+import { Card_Contenedor_Eventos } from "../component/cards/contenedor_cards_eventos.jsx";
 
 export const Vista_Cards = () => {
     const [filtros, setFiltros] = useState('Explorar Rutas');
@@ -35,9 +36,8 @@ export const Vista_Cards = () => {
                 {filtros === 'Explorar Rutas' ?
                     <Card_contenor />
                     :
-                    <div className="text-center">
-                        <h1>Eventos</h1>
-                    </div>
+                    <Card_Contenedor_Eventos />
+
                 }
             </div>
         </div>
