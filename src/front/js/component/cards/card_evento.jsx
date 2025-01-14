@@ -1,4 +1,6 @@
 import React from "react";
+import imagen from "../../../img/testeo.jpg";
+import Mark from "../../../img/items/mark.png";
 
 export const Card_Evento = () => {
 
