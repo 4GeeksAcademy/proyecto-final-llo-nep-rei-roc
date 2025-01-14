@@ -774,3 +774,11 @@ def eliminar_valoracion(id):
     db.session.commit()
 
     return jsonify({"message": f"Valoración con ID {id} eliminada exitosamente."}), 200
+
+@api.route('/api/locations', methods=['GET'])
+def get_locations():
+    locations = [
+        {"lat": 40.712776, "lng": -74.005974, "name": "New York"},
+        {"lat": 34.052235, "lng": -118.243683, "name": "Los Angeles"},
+    ]
+    return jsonify(locations)
