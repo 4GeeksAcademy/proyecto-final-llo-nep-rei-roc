@@ -6,7 +6,7 @@ from api.models import db, Users, Rutas, Categorias, Eventos, Rutas_eventos, Fav
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from sqlalchemy.exc import SQLAlchemyError
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token
 import re
 
@@ -291,6 +291,49 @@ def delete_user(user_id):
         db.session.rollback()
         return jsonify({
             "msg": "Unexpected error",
+            "error": str(e)
+        }), 500
+
+# Endpoint para login de usuario por email.
+@api.route('/login', methods=['POST'])
+def login():
+    """
+    Endpoint para login de usuario.
+    """
+    email = request.json.get('email', None)
+    password = request.json.get('password', None)
+
+    if not email or not password:
+        return jsonify({"msg": "Todos los datos son necesarios"}), 400
+
+    # Validación simple del formato de correo
+    if not isinstance(email, str) or not isinstance(password, str):
+        return jsonify({"msg": "Datos inválidos"}), 400
+
+    email_regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
+    if not re.match(email_regex, email):
+        return jsonify({"msg": "Correo electrónico no válido"}), 400
+
+    try:
+        user = Users.query.filter_by(email=email).first()
+        if not user or not check_password_hash(user.password, password):
+            return jsonify({"msg": "Credenciales inválidas"}), 401
+
+        token = create_access_token(identity=str(user.id))
+        return jsonify({
+            "msg": "Inicio de sesión exitoso",
+            "token": token,
+            "user_id": user.id  # Devuelve el ID del usuario
+        }), 200
+
+    except SQLAlchemyError as e:
+        return jsonify({
+            "msg": "Error de base de datos",
+            "error": f"Database query failed: {str(e)}"
+        }), 500
+    except Exception as e:
+        return jsonify({
+            "msg": "Error interno",
             "error": str(e)
         }), 500
 
