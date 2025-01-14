@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import Imagen from "../../../img/testeo.jpg";
 import Icon_message from "../../../img/items/comment-light.svg";
 import Icon_edit from "../../../img/items/pencil-edit-02.svg";
 import { Button_Blue } from "../../component/buttons/button_blue.jsx";
+import { RouteList } from "../../component/rutas/rutas.jsx";
 
 const Vista_Card_Ruta = () => {
+
+    const [showRoute, setShowRoute] = useState('');
+
+    const expandirRuta = () => {
+        if (showRoute === 'Route') {
+            setShowRoute('')
+        } else {
+            setShowRoute('Route')
+        }
+    }
+
     return (
         <div className="container contenedor_card">
             <div className="row">
@@ -41,16 +53,18 @@ const Vista_Card_Ruta = () => {
                                 <p className="m-0">Route</p>
 
 
-                                <p className="m-0">Show Route</p>
+                                <a className="m-0" onClick={() => expandirRuta()}>Show Route</a>
 
                             </div>
+                            {showRoute === 'Route' ? <RouteList stops={["Parada 1", "Parada 2", "Parada 3"]} /> : <></>}
+
                             <hr />
                             <div className="Review d-flex justify-content-between contenedores_secciones">
 
                                 <p className="m-0">Review</p>
 
 
-                                <p className="m-0">Show Route</p>
+                                <p className="m-0">Share Feedback</p>
 
                             </div>
                             <hr />
@@ -59,7 +73,7 @@ const Vista_Card_Ruta = () => {
                                 <p className="m-0">Comments & Reviews</p>
 
 
-                                <p className="m-0">Show Route</p>
+                                <p className="m-0">Show Details</p>
 
                             </div>
                             {/*</div>*/}
