@@ -4,16 +4,27 @@ import Icon_message from "../../../img/items/comment-light.svg";
 import Icon_edit from "../../../img/items/pencil-edit-02.svg";
 import { Button_Blue } from "../../component/buttons/button_blue.jsx";
 import { RouteList } from "../../component/rutas/rutas.jsx";
+import { StarRating } from "../../component/rating/rating.jsx";
 
 const Vista_Card_Ruta = () => {
 
     const [showRoute, setShowRoute] = useState('');
+    const [createRating, setCreateRating] = useState('');
 
     const expandirRuta = () => {
         if (showRoute === 'Route') {
             setShowRoute('')
         } else {
             setShowRoute('Route')
+        }
+    }
+
+    const expandirCreateRating = () => {
+
+        if (createRating === 'Rating') {
+            setCreateRating('')
+        } else {
+            setCreateRating('Rating')
         }
     }
 
@@ -47,7 +58,6 @@ const Vista_Card_Ruta = () => {
                                 <h5 className="m-0">@pepe.pes</h5>
                             </div>
                             <hr />
-                            {/*<div className="d-flex flex-column">*/}
                             <div className="Rutas d-flex justify-content-between contenedores_secciones">
 
                                 <p className="m-0">Route</p>
@@ -64,9 +74,10 @@ const Vista_Card_Ruta = () => {
                                 <p className="m-0">Review</p>
 
 
-                                <p className="m-0">Share Feedback</p>
+                                <a className="m-0" onClick={() => expandirCreateRating()}>Share Feedback</a>
 
                             </div>
+                            {createRating === 'Rating' ? <StarRating /> : <></>}
                             <hr />
                             <div className="Comments_Reviews d-flex justify-content-between contenedores_secciones">
 
